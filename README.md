@@ -1,46 +1,46 @@
 # Jarvis – AI-Powered Desktop Voice Assistant
 
-Jarvis is an AI-powered, voice-controlled desktop assistant built with Python. It can automate common operating system tasks, perform web searches, control audio, open applications, provide news updates, play music, and use Google's Gemini API for natural conversational interactions.
-
----
+Jarvis is an AI-powered, voice-controlled desktop assistant built with Python. It can automate common Windows tasks, control system volume, open applications and folders, perform web searches, provide news updates, play music, manage notes and clipboard content, and use Google's Gemini API for conversational responses.
 
 ## Key Features
 
-* **Wake Word Detection:** Continuously listens in the background for the "Jarvis" trigger word.
-* **System Automation:** Controls master volume using Windows APIs (`pycaw`), captures screenshots (`pyautogui`), checks battery percentage (`psutil`), and handles clipboard operations (`pyperclip`).
-* **Application Launcher:** Opens native system apps such as VS Code, Notepad, Command Prompt, and Calculator, along with system settings.
-* **Web & Media Control:** Executes Google and YouTube queries automatically, reads live top news headlines, and streams music tracks from a custom library dictionary.
-* **Generative AI Integration:** Uses Google's `gemini-2.5-flash` model through the `google-genai` SDK to answer complex queries and provide conversational responses.
-* **Asynchronous Audio Output:** Uses multi-threaded speech playback to keep the assistant responsive without freezing the main application loop.
-
----
+* **Wake Word Detection:** Listens for the **"Jarvis"** wake word before accepting voice commands.
+* **System Automation:** Controls master volume, checks battery percentage, takes screenshots, and manages clipboard content.
+* **Application Launcher:** Opens VS Code, Calculator, Notepad, Paint, Command Prompt, File Explorer, and Windows Settings.
+* **Folder Access:** Opens common folders such as Downloads, Documents, Pictures, Music, and Desktop.
+* **Web Search:** Searches Google and YouTube using voice commands.
+* **Websites:** Quickly opens Google, YouTube, LinkedIn, Instagram, GitHub, and ChatGPT.
+* **News Updates:** Fetches live top headlines from India using NewsAPI.
+* **Music Playback:** Streams music tracks from a custom library dictionary.
+* **Notes:** Saves and reads simple text notes using voice commands.
+* **Generative AI:** Uses Google's Gemini API for conversational responses when a command does not match a predefined action.
+* **Text Mode:** Supports text-based interaction using the `--text` command-line option.
+* **Voice Responses:** Uses text-to-speech to respond to the user.
 
 ## Tech Stack
 
 * **Language:** Python 3.x
-* **AI Engine:** Google Gemini API (`google-genai`)
+* **AI:** Google Gemini API (`google-genai`)
 * **Speech Recognition:** `SpeechRecognition`
-* **Text-to-Speech (TTS):** `gTTS`, `pyttsx3`, `pygame`
+* **Text-to-Speech:** `gTTS`, `pyttsx3`
+* **Audio Playback:** `pygame`
 * **System Automation:** `pycaw`, `psutil`, `pyautogui`, `comtypes`, `pyperclip`
-* **Utilities:** `python-dotenv`, `requests`
-
----
+* **Web Requests:** `requests`
+* **Environment Variables:** `python-dotenv`
 
 ## Project Structure
 
 ```text
-├── main.py              # Main execution loop and voice command routing
-├── client.py            # Gemini API integration and system prompt configuration
-├── music_library.py     # Track mapping dictionary for web/media playback
+├── main.py              # Main execution loop and voice command processing
+├── client.py            # Gemini API integration
+├── music_library.py     # Music track mapping dictionary
 ├── .env.example         # Example environment variables
-├── .gitignore           # Excludes sensitive keys and temporary files
-├── requirements.txt     # Project dependencies
+├── .gitignore           # Excludes sensitive and temporary files
+├── requirements.txt     # Python dependencies
 └── README.md            # Project documentation
 ```
 
-> **Note:** The actual `.env` file is not included in the repository because it contains your API key.
-
----
+> **Note:** The actual `.env` file is not included in the repository because it contains API keys.
 
 ## Requirements
 
@@ -51,8 +51,9 @@ Before running Jarvis, make sure you have:
 * A working microphone
 * An internet connection
 * A Google Gemini API key
+* A NewsAPI key
 
----
+> **Note:** Jarvis currently uses Windows-specific features such as `pycaw`, Windows system applications, and Windows audio APIs.
 
 ## Setup & Installation
 
@@ -63,7 +64,7 @@ git clone https://github.com/sumittiwari24108-tech/jarvis-python-assistant.git
 cd jarvis-python-assistant
 ```
 
-### 2. Set Up a Virtual Environment
+### 2. Create a Virtual Environment
 
 ```bash
 python -m venv venv
@@ -75,51 +76,67 @@ Activate it on Windows:
 venv\Scripts\activate
 ```
 
-> **Note:** Jarvis currently uses Windows-specific features such as `pycaw` and Windows system applications.
-
 ### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configure Environment Variables
+### 4. Configure API Keys
 
-Create a `.env` file in the project root and add your Gemini API key:
+Create a `.env` file in the project root:
 
 ```env
-GEMINI_API_KEY=your_google_gemini_api_key_here
+GEMINI_API_KEY=your_gemini_api_key
+NEWS_API_KEY=your_newsapi_key
 ```
 
-> **Security:** Never upload or share your `.env` file or your Gemini API key publicly.
+> **Security:** Never upload or share your `.env` file or your API keys publicly.
 
-### 5. Run the Assistant
+### 5. Run Jarvis
+
+For voice mode:
 
 ```bash
 python main.py
 ```
 
-Once started, Jarvis will listen for the **"Jarvis"** wake word and respond to supported voice commands.
+For text mode:
 
----
+```bash
+python main.py --text
+```
+
+Once started, Jarvis will listen for the **"Jarvis"** wake word and respond to supported commands.
 
 ## Example Commands
 
-Some example commands you can try:
+You can try commands such as:
 
 * "Jarvis, open VS Code"
 * "Jarvis, open Calculator"
-* "Jarvis, take a screenshot"
-* "Jarvis, increase the volume"
+* "Jarvis, open Notepad"
+* "Jarvis, open Paint"
+* "Jarvis, open Downloads"
+* "Jarvis, open Documents"
+* "Jarvis, increase volume"
+* "Jarvis, decrease volume"
+* "Jarvis, mute"
+* "Jarvis, unmute"
+* "Jarvis, what's the time?"
+* "Jarvis, what's the date?"
 * "Jarvis, what's my battery percentage?"
-* "Jarvis, search Google for Python tutorials"
-* "Jarvis, search YouTube for music"
+* "Jarvis, take a screenshot"
+* "Jarvis, search Python tutorials"
+* "Jarvis, search YouTube music"
+* "Jarvis, open GitHub"
 * "Jarvis, what's in the news?"
-* "Jarvis, play sapphire"
+* "Jarvis, play [song name]"
+* "Jarvis, write note [your note]"
+* "Jarvis, read notes"
+* "Jarvis, read clipboard"
 
 The available commands depend on the functionality implemented in the project.
-
----
 
 ## How It Works
 
@@ -134,54 +151,64 @@ Wake Word Detection
      ↓
 Command Processing
      ↓
- ┌───────────────────────┐
- │                       │
- ▼                       ▼
-System / Web Commands   Gemini AI
- │                       │
- └───────────┬───────────┘
-             ↓
+ ┌─────────────────────────┐
+ │                         │
+ ▼                         ▼
+Predefined Commands     Gemini AI
+ │                         │
+ └────────────┬────────────┘
+              ↓
        Generate Response
-             ↓
-        Text-to-Speech
-             ↓
+              ↓
+       Text-to-Speech
+              ↓
         Audio Response
 ```
 
-Jarvis first listens for the wake word **"Jarvis"**. After detecting it, the assistant processes the user's voice command and either performs a predefined action or sends the query to Gemini for a conversational response.
+Jarvis first listens for the **"Jarvis"** wake word. After detecting it, the assistant listens for a command and processes it.
 
----
+If the command matches a predefined function, Jarvis performs the requested action. Otherwise, the query is sent to Gemini for a conversational response.
 
 ## Troubleshooting
 
-### Gemini API is not responding
+### Gemini is not responding
 
-Make sure:
+Check that:
 
 * Your `.env` file exists in the project folder.
-* The `GEMINI_API_KEY` is entered correctly.
+* `GEMINI_API_KEY` is correct.
 * Your internet connection is working.
-* The required dependencies are installed.
+* All dependencies are installed.
+
+### News is not working
+
+Check that:
+
+* `NEWS_API_KEY` is correctly added to `.env`.
+* Your internet connection is working.
+* Your NewsAPI key is valid.
 
 ### Microphone is not working
 
 Check that:
 
 * Your microphone is connected and working.
-* Windows has microphone access enabled.
-* Python is using the correct input device.
+* Windows microphone permissions are enabled.
+* Python is using the correct microphone device.
 
 ### Jarvis is not speaking
 
-Make sure your system audio is working and the required audio libraries have been installed correctly.
+Make sure:
 
----
+* Your system audio is working.
+* `gTTS`, `pygame`, and `pyttsx3` are installed correctly.
+* Your internet connection is available for `gTTS`.
 
 ## Security
 
-Keep your Gemini API key private.
+Keep your API keys private.
 
-Do not commit your `.env` file to GitHub. Make sure your `.gitignore` contains:
+Make sure `.env` is included in `.gitignore`:
 
 ```gitignore
 .env
@@ -190,7 +217,7 @@ __pycache__/
 *.pyc
 ```
 
----
+Never commit API keys directly into your Python files or GitHub repository.
 
 ## Future Improvements
 
@@ -201,6 +228,13 @@ Some possible improvements for future versions include:
 * Improved natural-language command understanding
 * More application integrations
 * Better error handling
-* A graphical user interface (GUI)
+* Graphical user interface (GUI)
 * Custom voice responses
 * More advanced Gemini-powered interactions
+* Additional APIs and online services
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+
