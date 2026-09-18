@@ -1,24 +1,45 @@
-# Jarvis – Desktop Voice Assistant
+# Jarvis – AI-Powered Desktop Voice Assistant
 
-An intelligent voice-controlled desktop assistant built with Python and integrated with Google's Gemini API.
+Jarvis is an intelligent, voice-controlled desktop assistant built with Python. It automates daily operating system tasks, executes web searches, manages audio, and seamlessly falls back on Google's Gemini API for natural conversational interactions.
 
-## Features
-- **Wake Word Detection:** Responds to the "Jarvis" wake word.
-- **System Control:** Manage Windows volume, take screenshots, check battery status, and access clipboard.
-- **Application Automation:** Open apps like VS Code, Calculator, Notepad, CMD, and system settings.
-- **Web & API Integration:** Perform Google/YouTube searches, read top headlines, and stream music.
-- **Generative AI Fallback:** Powered by `gemini-2.5-flash` to handle conversational queries naturally.
+---
+
+## Key Features
+
+- **Wake Word Detection:** Continuously listens in the background for the "Jarvis" trigger word.
+- **System Automation:** Controls master volume via Windows APIs (`pycaw`), captures screenshots (`pyautogui`), checks battery percentage (`psutil`), and handles clipboard operations (`pyperclip`).
+- **Application Launcher:** Opens native system apps (VS Code, Notepad, Command Prompt, Calculator) and system settings via subprocesses.
+- **Web & Media Control:** Executes Google and YouTube queries automatically, reads live top news headlines, and streams music tracks from a custom library dictionary.
+- **Generative AI Integration:** Uses Google's `gemini-2.5-flash` model (`google-genai`) to answer complex queries, governed by custom system instructions and length constraints.
+- **Asynchronous Audio Output:** Multi-threaded speech playback to ensure the assistant remains responsive without freezing the main application loop.
+
+---
 
 ## Tech Stack
-- **Language:** Python
-- **AI Model:** Google Gemini API (`google-genai`)
+
+- **Language:** Python 3.x
+- **AI Engine:** Google Gemini API (`google-genai`)
 - **Speech Recognition:** `SpeechRecognition`
-- **Audio Output:** `gTTS`, `pygame`, `pyttsx3`
-- **System APIs:** `pycaw`, `psutil`, `pyautogui`, `subprocess`
+- **Text-to-Speech (TTS):** `gTTS`, `pyttsx3`, `pygame`
+- **System Automation:** `pycaw`, `psutil`, `pyautogui`, `comtypes`, `pyperclip`
+- **Utilities:** `python-dotenv`, `requests`
+
+---
+
+## Project Structure
+
+```text
+├── main.py              # Main execution loop and voice command routing
+├── client.py            # Gemini API integration and system prompt configuration
+├── music_library.py     # Track mapping dictionary for web/media playback
+├── .env                 # API keys (hidden via .gitignore)     
+├── .gitignore           # Excludes sensitive keys and temporary files
+├── requirements.txt     # Clean project dependencies
+└── README.md            # Project documentation
 
 ## Setup & Installation
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git)
-   cd YOUR_REPOSITORY_NAME
+### 1. Clone the Repository
+```bash
+git clone https://github.com/sumittiwari24108-tech/jarvis-python-assistant.git
+cd jarvis-python-assistant
