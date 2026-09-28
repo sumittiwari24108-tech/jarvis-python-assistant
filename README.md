@@ -79,7 +79,7 @@ python -m venv venv
 Activate it on Windows:
 
 ```bash
-.venv\Scripts\Activate
+.\venv\Scripts\Activate.ps1
 ```
 
 ### 3. Install Dependencies
