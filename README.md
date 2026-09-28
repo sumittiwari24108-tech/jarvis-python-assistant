@@ -1,6 +1,12 @@
 # Jarvis – AI-Powered Desktop Voice Assistant
 
-Jarvis is an AI-powered, voice-controlled desktop assistant built with Python. It can automate common Windows tasks, control system volume, open applications and folders, perform web searches, provide news updates, play music, manage notes and clipboard content, and use Google's Gemini API for conversational responses.
+Jarvis is a Python-based desktop voice assistant built by Sumit Tiwari.
+It combines voice interaction, Windows automation, external APIs, and
+Google's Gemini API to perform common desktop tasks and conversational
+requests.
+
+> Built as a learning project to explore Python, APIs, automation,
+> speech processing, and AI integration.
 
 ## Key Features
 
@@ -73,7 +79,7 @@ python -m venv venv
 Activate it on Windows:
 
 ```bash
-venv\Scripts\activate
+.venv\Scripts\Activate
 ```
 
 ### 3. Install Dependencies
