@@ -23,9 +23,6 @@ import pyperclip
 import sys
 
 # Config and Initialization
-load_dotenv()
-newsapi = os.getenv("NEWS_API_KEY")
-JARVIS_PATH = r"D:\IITM BS\code\Mega Project 1-Jarvis"
 
 recognizer = sr.Recognizer()
 recognizer.energy_threshold = 300
@@ -37,6 +34,10 @@ recognizer.non_speaking_duration = 0.8
 engine = pyttsx3.init()
 pygame.mixer.init()
 
+load_dotenv()
+newsapi = os.getenv("NEWS_API_KEY")
+JARVIS_PATH = r"D:\IITM BS\code\Mega Project 1-Jarvis"
+
 
 def speak_old(text):
     print("Jarvis:", text)
@@ -45,14 +46,7 @@ def speak_old(text):
     engine.setProperty('volume', 1.0)
     engine.say(text)
     engine.runAndWait()
-    # engine.stop()
-
-# def speak_old(text):
-#     print("Jarvis:", text)
-#     engine = pyttsx3.init()
-#     engine.say(text)
-#     engine.runAndWait()
-#     engine.stop()
+    
 
 def speak(text):
     print("Jarvis:", text)
@@ -74,7 +68,7 @@ def speak(text):
 
     pygame.mixer.music.stop()
 
-    # ab file unlock ho jayegi
+    # File will be unlocked now
     pygame.mixer.music.unload()
     time.sleep(0.2)
     os.remove("temp.mp3")
@@ -106,7 +100,7 @@ def change_volume(action):
 def processCommand(c):
     c = c.lower().strip()
 
-    # ---------- OPEN APPLICATIONS ----------
+    # OPEN APPLICATIONS
 
     if "vs code" in c or "visual studio code" in c:
         speak("Opening VS Code.")
@@ -161,7 +155,7 @@ def processCommand(c):
         os.startfile(JARVIS_PATH)
         return        
 
-    # ---------- FOLDERS ----------
+    # FOLDERS
 
     elif "downloads" in c:
         speak("Opening Downloads.")
@@ -213,21 +207,21 @@ def processCommand(c):
         os.system("start ms-settings:")
         return
 
-    # ---------- TIME ----------
+    # TIME 
 
     elif "time" in c:
         current = datetime.datetime.now().strftime("%I:%M %p")
         speak(f"The time is {current}")
         return
 
-    # ---------- DATE ----------
+    # DATE
 
     elif "date" in c:
         today = datetime.datetime.now().strftime("%d %B %Y")
         speak(f"Today is {today}")
         return
 
-    # ---------- BATTERY ----------
+    # BATTERY 
 
     elif "battery" in c:
         battery = psutil.sensors_battery()
@@ -239,7 +233,7 @@ def processCommand(c):
 
         return
 
-    # ---------- SCREENSHOT ----------
+    # SCREENSHOT
 
     elif "screenshot" in c:
         filename = f"screenshot_{int(time.time())}.png"
@@ -247,7 +241,7 @@ def processCommand(c):
         speak("Screenshot taken.")
         return
     
-    # ---------- YOUTUBE SEARCH ----------
+    # YOUTUBE SEARCH 
 
     elif c.startswith("search youtube"):
         query = c.replace("search youtube", "").strip()
@@ -262,7 +256,7 @@ def processCommand(c):
             speak("What should I search on YouTube?")    
 
         return
-    # ---------- GOOGLE SEARCH ----------
+    # GOOGLE SEARCH 
 
     elif c.startswith("search "):
 
