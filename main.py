@@ -104,7 +104,7 @@ def processCommand(c):
 
     if "vs code" in c or "visual studio code" in c:
         speak("Opening VS Code.")
-        subprocess.Popen("code")
+        subprocess.Popen("code.cmd", shell=True)
         return
 
     elif "calculator" in c:
