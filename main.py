@@ -256,6 +256,7 @@ def processCommand(c):
             speak("What should I search on YouTube?")    
 
         return
+
     # GOOGLE SEARCH 
 
     elif c.startswith("search "):
@@ -310,12 +311,16 @@ def processCommand(c):
         if link:
             webbrowser.open(link)
         else:
-                speak("Song not found.")
-                return
+            speak("Song not found.")
+            return
 
     elif "news" in c:
         try:
-            r = requests.get(f"https://newsapi.org/v2/top-headlines?country=in&apiKey={newsapi}", timeout= 10)    
+            r = requests.get(
+                f"https://newsapi.org/v2/top-headlines?country=in&apiKey={newsapi}",
+                timeout=10
+            )
+
             if r.status_code == 200:
                 # Parse the JSON response
                 data = r.json()
@@ -343,6 +348,7 @@ def processCommand(c):
 
     elif "clipboard" in c:
         text = pyperclip.paste()
+
         if text:
             speak(text)
         else:
@@ -353,8 +359,10 @@ def processCommand(c):
         try:
             response = ask_gemini(c)
             speak(response)
+
         except Exception as e:
             speak("Sorry, I couldn't reach Gemini right now")          
+
 
 def run_text_mode():
     speak("Text mode ready, Sir.")
@@ -362,6 +370,7 @@ def run_text_mode():
     while True:
         try:
             command = input("You: ").strip()
+
         except (EOFError, KeyboardInterrupt):
             print()
             break
@@ -383,31 +392,51 @@ def run_text_mode():
 
         processCommand(command)
 
+
 if __name__ == "__main__":
 
     if "--text" in sys.argv:
         run_text_mode()
         raise SystemExit
 
+    # Clean terminal for Jarvis startup
+    os.system("cls")
+    os.system("title JARVIS - AI Desktop Voice Assistant")
+
+    print("=" * 50)
+    print("              J A R V I S")
+    print("       AI Desktop Voice Assistant")
+    print("=" * 50)
+    print()
+
     print("Calibrating microphone...")
+
     with sr.Microphone() as source:
         recognizer.adjust_for_ambient_noise(source, duration=1)
-    print("Calibration Complete.") 
 
-    speak("Initializing Jarvis....")
-
+    print("Calibration Complete.")
+    print()
+    speak('Say "Jarvis" to get started...')
+    print()
 
     while True: 
         # Listen for the wake word Jarvis
         # Obtain audio from the microphone
 
-        print("Waiting for wake word...")
+        print('Waiting for "Jarvis"...')
 
         try:
             with sr.Microphone() as source:
-                print("Listening...")
-                audio = recognizer.listen(source, timeout=5, phrase_time_limit=3)
+                print("Listening for wake word...")
+
+                audio = recognizer.listen(
+                    source,
+                    timeout=5,
+                    phrase_time_limit=3
+                )
+
             word = recognizer.recognize_google(audio)
+
             if "jarvis" in word.lower(): 
                 speak("Ready Sir.")
 
@@ -415,8 +444,8 @@ if __name__ == "__main__":
 
                     try:
                         with sr.Microphone() as source: 
-                            print("-" * 40) 
-                            print("Listening for command...") 
+                            print()
+                            print("Listening for your command...")
 
                             audio = recognizer.listen(
                                 source,
@@ -442,10 +471,12 @@ if __name__ == "__main__":
                             break
 
                         command = command.lower().strip()
+
                         # Ignore wake word during continuous mode
                         if command == "jarvis":
                             speak("I'm already listening.")
                             continue
+
                         processCommand(command)
 
                     except sr.UnknownValueError:
@@ -457,7 +488,6 @@ if __name__ == "__main__":
                         break
 
         except Exception as e:
-            print("Error {0}".format(e))            
-
+            print("Error {0}".format(e))
 
 

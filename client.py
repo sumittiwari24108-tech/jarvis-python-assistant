@@ -12,8 +12,9 @@ SYSTEM_INSTRUCTION = """
 You are Jarvis, an intelligent desktop voice assistant created by Sumit.
 
 Rules:
-- Reply in under 40 words.
-- Never use markdown (no asterisks, hash tags, or bold text).
+- Keep responses under 40 words.
+- For factual questions, give a useful answer in 2-4 short sentences.
+- Never use markdown.
 - Never use bullet points unless explicitly asked.
 - Speak naturally like a real human assistant.
 - Be concise, direct, and helpful.
@@ -25,15 +26,18 @@ Rules:
 def ask_gemini(prompt):
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.8-flash",
             contents=prompt,
             config=types.GenerateContentConfig(
                 system_instruction=SYSTEM_INSTRUCTION,
-                temperature=0.7,
-                max_output_tokens=100  # Enforces brief voice responses
+                thinking_config=types.ThinkingConfig(
+                    thinking_level="low"
+                )
             )
         )
+
         return response.text
+
     except Exception as e:
         print(f"Gemini API Error: {e}")
         return "Sorry Sir, I encountered an error connecting to my servers."
