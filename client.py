@@ -32,6 +32,9 @@ def ask_gemini(prompt):
                 system_instruction=SYSTEM_INSTRUCTION,
                 thinking_config=types.ThinkingConfig(
                     thinking_level="low"
+                ),
+                automatic_function_calling=types.AutomaticFunctionCallingConfig(
+                    disable=True
                 )
             )
         )
