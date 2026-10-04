@@ -2,3 +2,6 @@
 .venv/
 __pycache__/
 *.pyc
+temp.mp3
+notes.txt
+screenshot_*.png

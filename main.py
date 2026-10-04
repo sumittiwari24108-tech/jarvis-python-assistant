@@ -21,6 +21,7 @@ from urllib.parse import quote
 import json
 import pyperclip 
 import sys
+from pathlib import Path
 
 # Config and Initialization
 
@@ -36,7 +37,7 @@ pygame.mixer.init()
 
 load_dotenv()
 newsapi = os.getenv("NEWS_API_KEY")
-JARVIS_PATH = r"D:\IITM BS\code\Mega Project 1-Jarvis"
+JARVIS_PATH = JARVIS_PATH = Path(__file__).resolve().parent
 
 
 def speak_old(text):
@@ -152,7 +153,7 @@ def processCommand(c):
 
     elif "jarvis project" in c:
         speak("Opening Jarvis project.")
-        os.startfile(JARVIS_PATH)
+        os.startfile(str(JARVIS_PATH))
         return        
 
     # FOLDERS
